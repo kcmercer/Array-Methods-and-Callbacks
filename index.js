@@ -100,7 +100,6 @@ function getWinnersByYear(array, getFinalscb, getYearscb, getWinnerscb) {
     });
     return winnersByYear;
 }
-console.log(getWinnersByYear(fifaData, getFinals, getYears, getWinners));
 
 console.log('task 5 -',getWinnersByYear(fifaData,getFinals,getYears,getWinners))
 
