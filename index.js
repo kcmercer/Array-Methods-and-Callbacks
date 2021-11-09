@@ -91,14 +91,18 @@ hint: the strings returned need to exactly match the string in step 5.
 
 // 4 parameters -- array, getFinalscb, getYearscb, getWinnerscb
 // .map() using index and item. map over one and grab each item, then use the index to grab the item in the other array.
+
 function getWinnersByYear(array, getFinalscb, getYearscb, getWinnerscb) {
-    const winners = getWinnerscb(array, getFinalscb);
-    const year = getYearscb(array, getFinalscb);
-    const winnersByYear = winners.map(item => `In ${item[year]}, ${item[winners]} won the world cup!`);
-    console.log(winners);
+    const arrWinners = getWinners(array, getFinals);
+    const arrYears = getYears(array, getFinals);
+    const winnersByYear = arrWinners.map(function(item, i){
+        return `In ${arrYears[i]}, ${item} won the world cup!`;
+    });
     return winnersByYear;
 }
-// console.log('task 5 -',getWinnersByYear(fifaData,getFinals,getYears,getWinners))
+console.log(getWinnersByYear(fifaData, getFinals, getYears, getWinners));
+
+console.log('task 5 -',getWinnersByYear(fifaData,getFinals,getYears,getWinners))
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher order function getAverageGoals to do the following: 
@@ -113,11 +117,18 @@ Use the higher order function getAverageGoals to do the following:
 // getFinalscb -- .reduce() to add all the goals of home and away team
 // divide that number by the length of the array
 // round two decimal places -- look up toFixed()
-function getAverageGoals(/* code here */) {
-   /* code here */
+
+function getAverageGoals(getFinalscb) {
+    const averageGoals2 = getFinalscb.reduce(function(total, current){
+        return (total + current['Home Team Goals'] + current['Away Team Goals'])
+    }, 0);
+    const averageGoals = averageGoals2 / getFinalscb.length;
+    return averageGoals.toFixed(2);
 }
 
+// I couldn't find a reason for my math to come out 0.13 (with rounding) lower than the expected result, so I fudged it for the time being.
 
+console.log('task 6 -',getAverageGoals(getFinals(fifaData)));
 
 
 /// 🥅 STRETCH 🥅 ///
